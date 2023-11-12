@@ -1,11 +1,42 @@
+
+let nSlider;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  nSlider = createSlider(1, 1000, 1, 10);
+  nSlider.position(100,100);
+
+ 
 }
 
+let gridSize = 16;
+
 function draw() {
-  background(255);
-  fill(0);
-  rect(width / 2 - width / 40, height / 4 - width / 20, width / 20, height / 2 + width / 10);
-  rect(width / 2.5, height / 4 + height / 2, width - 2 * width / 2.5, width / 20);
-  rect(width / 2 - width / 20 - width / 40, height / 4 - width / 20, width / 20, width / 20);
+  background(0);
+  stroke(255);
+  // noStroke();
+  let nscale = nSlider.value();
+
+  for(let y = 0; y <= height; y += gridSize){
+    let rc = floor(random(0,256));
+    for(let x = 0; x <= width; x += gridSize){
+      let fc = 255*noise(x/nscale, y/nscale, frameCount/nscale);
+      let aColor ;
+      if(fc>200){
+        aColor = "pink";
+      }else if(fc>150){
+        aColor = "gold"
+      }else if(fc>90){
+        aColor = "MediumPurple"
+      }else{
+        aColor = "peachpuff"
+      }
+      fill(aColor);
+      rect(x,y,gridSize,gridSize);
+    }
+  
+  
+  }
+
+
 }
